@@ -1,0 +1,23 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
+  host: localhost
+  username: <%= ENV['GAPPE_DATABASE_USERNAME'] %>
+  password: <%= ENV['GAPPE_DATABASE_PASSWORD'] %>
+
+
+development:
+  <<: *default
+  database: gappe_development
+
+test:
+  <<: *default
+  database: gappe_test
+
+production:
+  <<: *default
+  adapter: postgresql
+  host: <%= ENV['DATABASE_URL'] %>
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  database: <%= ENV['GAPPE_DATABASE_NAME'] %>

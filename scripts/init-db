@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+
+echo "Dropping user - gappe"
+
+dropuser gappe
+
+echo "gappe got dropped out"
+
+createuser -d -r -s -l gappe
+
+echo "User gappe has been created"
+
+echo "############### Drop All databases ##################"
+
+bin/rails db:drop
+
+echo "############### Creating the database ##################"
+
+bin/rails db:create
+
+echo "############### Database created ##################"
+
+echo "############### Start migration ##################"
+
+bin/rails db:migrate
+
+echo "############### Migration ended ##################"
